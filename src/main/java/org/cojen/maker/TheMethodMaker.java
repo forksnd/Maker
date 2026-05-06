@@ -3765,6 +3765,15 @@ class TheMethodMaker extends ClassMember implements MethodMaker {
 
         @Override
         Op flow(Flow flow, Op prev) {
+            // Check if this is a redundant return operation which can be eliminated.
+
+            if (OPTIMIZE && op() == RETURN &&
+                mNext instanceof Lab lab && lab.mNext instanceof ReturnOp nr && nr.op() == RETURN)
+            {
+                flow.removeOps(prev, this, lab, 1);
+                return lab;
+            }
+
             return null;
         }
     }
