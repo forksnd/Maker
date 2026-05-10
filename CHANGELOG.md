@@ -3,13 +3,14 @@ Changelog
 
 v2.8.0
 ------
+* Fixed handling of bootstrap methods with varargs.
+* Fixed an infinite loop when looking for superclasses of java.lang.Object.
 * Added support for special primitive type comparsion operations.
 * Disallow duplicate methods, which would result in a ClassFormatError when the class is
   finished. An IllegalStateException is thrown instead.
 * Improve the exception message when the class isn't found when looking for a field, method, or
   constructor.
 * Support logical shifts by longs, although only the lower 5 or 6 bits are effective.
-* Fixed an infinite loop when looking for superclasses of java.lang.Object.
 * Improve peephole optimization against the relational operations which return a boolean.
 * Partially undo a change from version 2.6.3 and eliminate unnecessary primitive variables,
   even if they have a name.

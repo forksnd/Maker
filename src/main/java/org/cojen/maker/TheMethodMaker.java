@@ -5461,20 +5461,25 @@ class TheMethodMaker extends ClassMember implements MethodMaker {
 
             BaseType[] bootTypes = bootstrap.paramTypes();
             var bootArgs = new ConstantPool.Constant[args.length];
+
             if (!bootstrap.isVarargs()) {
                 for (int i=0; i<args.length; i++) {
                     // +3 to skip these: Lookup caller, String name, and MethodType type
                     bootArgs[i] = addLoadableConstant(bootTypes[i + 3], args[i]);
                 }
             } else {
-                // +3 to skip these: Lookup caller, String name, and MethodType type
-                int i = 3;
+                // Up to +3 to skip these: Lookup caller, String name, and MethodType type
+                final int skip = Math.min(3, bootTypes.length - 1);
+
+                int i = skip;
                 for (; i < bootTypes.length - 1; i++) {
-                    bootArgs[i - 3] = addLoadableConstant(bootTypes[i], args[i - 3]);
+                    bootArgs[i - skip] = addLoadableConstant(bootTypes[i], args[i - skip]);
                 }
+
                 // Remaining args are passed as varargs.
                 BaseType varargType = bootTypes[i].elementType();
-                i -= 3;
+
+                i -= skip;
                 for (; i < args.length; i++) {
                     bootArgs[i] = addLoadableConstant(varargType, args[i]);
                 }
