@@ -21,7 +21,6 @@ import java.lang.constant.MethodTypeDesc;
 
 import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodType;
 
 import java.util.ArrayList;
 
@@ -44,7 +43,7 @@ final class TheLambdaFunction extends TheMethodMaker implements LambdaFunction {
     private ConstantVar mImplMethodHandle;
 
     /**
-     * @param method must not be registered with the BaseType
+     * @param implMethod must not be registered with the BaseType
      */
     TheLambdaFunction(TheClassMaker classMaker, BaseType.Method implMethod,
                       BaseType functionType, BaseType.Method functionMethod)
@@ -155,9 +154,7 @@ final class TheLambdaFunction extends TheMethodMaker implements LambdaFunction {
             list = new ArrayList<>();
         }
         list.add(toAdd.size());
-        for (Object obj : toAdd) {
-            list.add(obj);
-        }
+        list.addAll(toAdd);
         return list;
     }
 

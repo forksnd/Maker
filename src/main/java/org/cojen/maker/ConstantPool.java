@@ -466,7 +466,7 @@ class ConstantPool {
     }
 
     static class C_String extends Constant {
-        C_UTF8 mValue;
+        final C_UTF8 mValue;
 
         C_String(int tag, C_UTF8 value) {
             super(tag);
